@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:42:58 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/10 17:44:08 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/10 23:33:27 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 char	*get_next_line(int fd)
 {
 	char	*array;
-	char	*next;
 	int		array_len;
-	char	*array_start;
+	char	*returned;
+	int		i;
+	int		pos;
 
 	array_len = 1;
-	array = ft_calloc(BUFFER_SIZE);
-	array_start = array;
-	free(array);
 	while (array_len != 0)
 	{
 		array = ft_calloc(BUFFER_SIZE);
@@ -35,8 +33,15 @@ char	*get_next_line(int fd)
 			break ;
 		array += array_len;
 	}
-	while
-	return (array_start);
+	pos = 0;
+	while (*array != '\n' || *array != '\0')
+	{
+		returned = ft_calloc(BUFFER_SIZE);
+		i = BUFFER_SIZE;
+		while (i-- > 0)
+			returned[pos++] = *array++;
+	}
+	return (returned);
 }
 
 /*
