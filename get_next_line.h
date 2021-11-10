@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:43:20 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/09 13:40:40 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/10 16:24:08 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,9 @@
 # include <fcntl.h>
 
 char	*get_next_line(int fd);
+char	*ft_calloc(size_t len);
+void	*ft_memchr(const void *s, int c, size_t n);
+size_t	ft_strlen(const char *str);
+void	ft_free(char **ptr);
 
 #endif

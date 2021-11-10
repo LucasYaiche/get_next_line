@@ -2,7 +2,7 @@
 #Source#
 #======#
 
-SRC = get_next_line.c
+SRC = get_next_line.c get_next_line_utils.c
 
 OBJS = ${SRC:.c=.o}
 
