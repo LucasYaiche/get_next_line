@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:15:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/10 16:24:00 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/11 15:33:51 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,23 @@ char	*ft_calloc(size_t len)
 	return (tab);
 }
 
-void	*ft_memchr(const void *s, int c, size_t n)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	unsigned char	*t;
+	char	*answer;
+	char	*returned;
 
-	if (n != 0)
-	{	
-		t = (unsigned char *)s;
-		while (n > 0)
-		{
-			if (*t == ((unsigned char) c))
-				return (t);
-			t++;
-			n--;
-		}
-	}
-	return (0);
+	if (!s1 || !s2)
+		return (NULL);
+	answer = ft_calloc(ft_strlen(s1) + ft_strlen(s2));
+	returned = answer;
+	if (!answer)
+		return (NULL);
+	while (*s1)
+		*answer++ = *s1++;
+	while (*s2)
+		*answer++ = *s2++;
+	*answer = '\0';
+	return (returned);
 }
 
 size_t	ft_strlen(const char *str)
