@@ -17,16 +17,13 @@ char	*get_next_line(int fd)
 	char		*buf;
 	static char	*keep;
 	char		*inspect;
-	char		*array;
 	int			array_len;
 	int			i;
 	char		*returned;
 
-	array = ft_calloc(BUFFER_SIZE + 1);
-	if (!array)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	inspect = NULL;
-	
 	while (inspect == NULL)
 	{
 		buf = ft_calloc(BUFFER_SIZE + 1);
@@ -34,36 +31,39 @@ char	*get_next_line(int fd)
 			return (NULL);
 		array_len = read(fd, buf, BUFFER_SIZE);
 		if (array_len < 0)
+		{
+			free(buf);
+			free(keep);
 			return (NULL);
-		array = ft_strjoin(array, buf);
-		inspect = check(array, '\n', ft_strlen(array));
-		free(buf);
+		}
 		if (array_len == 0)
+		{
+			free(buf);
 			break ;
+		}
+		keep = ft_strjoin(keep, buf);
+		inspect = check(buf, '\n', ft_strlen(buf));
+		free(buf);
 	}
-	inspect++;
-	keep = ft_strdup(inspect);
-	//free(inspect);
+	if (!keep && array_len == 0)
+		return (NULL);
 	i = 0;
-	while (array[i] != '\n')
+	while (keep[i] != '\n' && keep[i] != '\0')
 		i++;
 	returned = ft_calloc(i + 1);
 	if (!returned)
 		return (NULL);
 	i = -1;
-	while (array[++i] != '\n' && array[i] != '\0')
-		returned[i] = array[i];
-	if (array_len != 0)
+	while (keep[++i] != '\n' && keep[i] != '\0')
+		returned[i] = keep[i];
+	if (inspect != 0)
+	{
 		returned[i] = '\n';
+		inspect++;
+		keep = ft_strdup(inspect);
+		free(inspect);
+	}
 	else
-		returned[i] = '\0';
-	free(array);
+		free(keep);
 	return (returned);
 }
-
-/*
-int	main()
-{
-	get_next_line(0);
-}
-*/

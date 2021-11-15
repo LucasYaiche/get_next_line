@@ -43,7 +43,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	answer = ft_calloc(ft_strlen(s1) + ft_strlen(s2));
+	answer = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	returned = answer;
 	if (!answer)
 		return (NULL);
@@ -52,7 +52,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (*s2)
 		*answer++ = *s2++;
 	*answer = '\0';
-	//free(s1);
 	return (returned);
 }
 
