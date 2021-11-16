@@ -6,11 +6,12 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:15:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/12 15:37:33 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/16 15:51:02 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
 
 char	*ft_bzero(char *s, size_t n)
 {
@@ -41,17 +42,19 @@ char	*ft_strjoin(char *s1, char *s2)
 	char	*answer;
 	char	*returned;
 
-	if (!s1 || !s2)
-		return (NULL);
 	answer = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	returned = answer;
 	if (!answer)
 		return (NULL);
-	while (*s1)
-		*answer++ = *s1++;
-	while (*s2)
+	if (s1)
+	{
+		while (*s1)
+			*answer++ = *s1++;
+	}
+	while (*s2 && *s2 != '\n')
 		*answer++ = *s2++;
-	*answer = '\0';
+	if (check(s2, '\n', ft_strlen(s2)))
+		*answer = '\n';
 	return (returned);
 }
 
@@ -60,8 +63,11 @@ size_t	ft_strlen(const char *str)
 	int	len;
 
 	len = 0;
-	while (str[len])
-		len++;
+	if (str)
+	{
+		while (str[len])
+			len++;
+	}
 	return (len);
 }
 
@@ -83,7 +89,7 @@ char	*check(char *s, char c, size_t n)
 	return (NULL);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(char *s)
 {
 	size_t			len;
 	char			*s2;
@@ -94,7 +100,7 @@ char	*ft_strdup(const char *s)
 	s2 = ft_calloc(len + 1);
 	if (!s2)
 		return (NULL);
-	while (i <= len)
+	while (i < len)
 	{
 		s2[i] = s[i];
 		i++;

@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:43:20 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/12 14:53:23 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/16 14:12:09 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	*ft_memchr(const void *s, int c, size_t n);
 size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char *s1, char *s2);
 char	*check(char *s, char c, size_t n);
-char	*ft_strdup(const char *s);
+char	*ft_strdup(char *s);
 
 #endif

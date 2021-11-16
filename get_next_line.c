@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:42:58 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/12 15:29:46 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/16 18:24:49 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ char	*get_next_line(int fd)
 	static char	*keep;
 	char		*inspect;
 	int			array_len;
-	int			i;
 	char		*returned;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	inspect = NULL;
+	returned = ft_strdup(keep);
 	while (inspect == NULL)
 	{
 		buf = ft_calloc(BUFFER_SIZE + 1);
@@ -33,7 +33,8 @@ char	*get_next_line(int fd)
 		if (array_len < 0)
 		{
 			free(buf);
-			free(keep);
+			if (returned)
+				free(returned);
 			return (NULL);
 		}
 		if (array_len == 0)
@@ -41,29 +42,36 @@ char	*get_next_line(int fd)
 			free(buf);
 			break ;
 		}
-		keep = ft_strjoin(keep, buf);
+		returned = ft_strjoin(returned, buf);
 		inspect = check(buf, '\n', ft_strlen(buf));
+		if (ft_strlen(inspect) > 1)
+			inspect++;
+		inspect = ft_strdup(inspect);
 		free(buf);
 	}
 	if (!keep && array_len == 0)
 		return (NULL);
-	i = 0;
-	while (keep[i] != '\n' && keep[i] != '\0')
-		i++;
-	returned = ft_calloc(i + 1);
-	if (!returned)
-		return (NULL);
-	i = -1;
-	while (keep[++i] != '\n' && keep[i] != '\0')
-		returned[i] = keep[i];
-	if (inspect != 0)
+	if (array_len != 0)
+		keep = inspect++;
+	if (ft_strlen(keep) == 0 || (array_len == 0 && !inspect))
 	{
-		returned[i] = '\n';
-		inspect++;
-		keep = ft_strdup(inspect);
-		free(inspect);
-	}
-	else
 		free(keep);
+		keep = 0;
+	}
 	return (returned);
 }
+/*
+int main(void)
+{
+	int fd = open("text", O_RDONLY);
+	char *gnl;
+
+	while ((gnl = get_next_line(fd)))
+	{
+		printf("%s", gnl);
+		free(gnl);
+		gnl = NULL;
+	}
+	return 0;
+}
+*/
