@@ -6,12 +6,11 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:15:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/16 15:51:02 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/17 19:19:24 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 char	*ft_bzero(char *s, size_t n)
 {
@@ -19,10 +18,7 @@ char	*ft_bzero(char *s, size_t n)
 
 	count = 0;
 	while (n > count)
-	{
-		s[count] = '\0';
-		count++;
-	}
+		s[count++] = '\0';
 	return (s);
 }
 
@@ -39,22 +35,27 @@ char	*ft_calloc(size_t len)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*answer;
 	char	*returned;
+	int		i;
+	int		j;
 
-	answer = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	returned = answer;
-	if (!answer)
+	returned = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!returned)
 		return (NULL);
+	i = 0;
+	j = -1;
 	if (s1)
 	{
-		while (*s1)
-			*answer++ = *s1++;
+		while (s1[++j])
+			returned[i++] = s1[j];
+		free(s1);
 	}
-	while (*s2 && *s2 != '\n')
-		*answer++ = *s2++;
-	if (check(s2, '\n', ft_strlen(s2)))
-		*answer = '\n';
+	j = -1;
+	if (s2)
+	{
+		while (s2[++j])
+			returned[i++] = s2[j];
+	}
 	return (returned);
 }
 
@@ -71,22 +72,21 @@ size_t	ft_strlen(const char *str)
 	return (len);
 }
 
-char	*check(char *s, char c, size_t n)
+int	check(char *s, char c)
 {
-	char	*t;
+	int	i;
 
-	if (n != 0)
+	if (s)
 	{	
-		t = s;
-		while (n > 0)
+		i = 0;
+		while (s[i])
 		{
-			if (*t == c)
-				return (t);
-			t++;
-			n--;
+			if (s[i] == c)
+				return (i);
+			i++;
 		}
 	}
-	return (NULL);
+	return (-1);
 }
 
 char	*ft_strdup(char *s)
@@ -95,6 +95,8 @@ char	*ft_strdup(char *s)
 	char			*s2;
 	size_t			i;
 
+	if (!s)
+		return (NULL);
 	len = ft_strlen(s);
 	i = 0;
 	s2 = ft_calloc(len + 1);

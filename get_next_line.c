@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:42:58 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/16 18:24:49 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/17 19:30:14 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ char	*get_next_line(int fd)
 {
 	char		*buf;
 	static char	*keep;
-	char		*inspect;
+	int			inspect;
 	int			array_len;
 	char		*returned;
+	char		*array;
+	int			i;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	inspect = NULL;
+	inspect = -1;
 	returned = ft_strdup(keep);
-	while (inspect == NULL)
+	while (inspect == -1)
 	{
 		buf = ft_calloc(BUFFER_SIZE + 1);
 		if (!buf)
@@ -32,9 +34,9 @@ char	*get_next_line(int fd)
 		array_len = read(fd, buf, BUFFER_SIZE);
 		if (array_len < 0)
 		{
+			free(returned);
+			free(keep);
 			free(buf);
-			if (returned)
-				free(returned);
 			return (NULL);
 		}
 		if (array_len == 0)
@@ -43,22 +45,33 @@ char	*get_next_line(int fd)
 			break ;
 		}
 		returned = ft_strjoin(returned, buf);
-		inspect = check(buf, '\n', ft_strlen(buf));
-		if (ft_strlen(inspect) > 1)
-			inspect++;
-		inspect = ft_strdup(inspect);
+		inspect = check(returned, '\n');
 		free(buf);
 	}
-	if (!keep && array_len == 0)
-		return (NULL);
-	if (array_len != 0)
-		keep = inspect++;
-	if (ft_strlen(keep) == 0 || (array_len == 0 && !inspect))
+	if (inspect != -1)
 	{
-		free(keep);
-		keep = 0;
+		inspect++;
+		i = inspect;
 	}
-	return (returned);
+	else
+		i = ft_strlen(returned);
+	array = ft_calloc(i + 1);
+	if (!array)
+		return (NULL);
+	i = 0;
+	if (inspect != -1)
+	{
+		while (inspect > i)
+		{
+			array[i] = returned[i];
+			i++;
+		}
+	}
+	else
+		array = ft_strdup(returned);
+	free(returned);
+	//printf("%p\n", array);
+	return (array);
 }
 /*
 int main(void)

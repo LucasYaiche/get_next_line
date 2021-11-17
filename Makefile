@@ -11,7 +11,7 @@ OBJS = ${SRC:.c=.o}
 #====#
 
 AR = ar rc
-CFLAGS = -Wall -Werror -Wextra -D BUFFER_SIZE=42
+CFLAGS =  -Wall -Werror -Wextra -D BUFFER_SIZE=1 
 NAME = test
 
 #=========#
