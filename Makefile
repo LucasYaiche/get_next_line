@@ -11,7 +11,7 @@ OBJS = ${SRC:.c=.o}
 #====#
 
 AR = ar rc
-CFLAGS =  -Wall -Werror -Wextra -D BUFFER_SIZE=1 
+CFLAGS =  -Wall -Werror -Wextra -D BUFFER_SIZE=42 
 NAME = test
 
 #=========#
@@ -26,7 +26,7 @@ ${NAME}:	${OBJS}
 
 all:		${NAME}
 
-run:		
+run:		re
 			./test
 
 clean:

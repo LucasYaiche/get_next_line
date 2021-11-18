@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:15:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/17 19:19:24 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/18 16:32:17 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,32 @@ char	*ft_calloc(size_t len)
 {
 	char	*tab;
 
-	tab = malloc(sizeof(tab) * len);
+	tab = malloc(sizeof(char) * len);
 	if (!tab)
 		return (NULL);
 	ft_bzero(tab, len);
 	return (tab);
+}
+
+char	*ft_strdup(char *s)
+{
+	size_t			len;
+	char			*s2;
+	size_t			i;
+
+	if (!s)
+		return (NULL);
+	len = ft_strlen(s);
+	i = 0;
+	s2 = ft_calloc(len + 1);
+	if (!s2)
+		return (NULL);
+	while (i < len)
+	{
+		s2[i] = s[i];
+		i++;
+	}
+	return (s2);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -39,6 +60,12 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		i;
 	int		j;
 
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
 	returned = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!returned)
 		return (NULL);
@@ -48,7 +75,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	{
 		while (s1[++j])
 			returned[i++] = s1[j];
-		free(s1);
+		ft_free(&s1);
 	}
 	j = -1;
 	if (s2)
@@ -87,25 +114,4 @@ int	check(char *s, char c)
 		}
 	}
 	return (-1);
-}
-
-char	*ft_strdup(char *s)
-{
-	size_t			len;
-	char			*s2;
-	size_t			i;
-
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s);
-	i = 0;
-	s2 = ft_calloc(len + 1);
-	if (!s2)
-		return (NULL);
-	while (i < len)
-	{
-		s2[i] = s[i];
-		i++;
-	}
-	return (s2);
 }
