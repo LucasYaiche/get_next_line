@@ -39,7 +39,7 @@ char	*get_next_line_2(char **keep, int array_len)
 	if (line[i + 1] != '\0' && array_len > 0)
 	{
 		ft_free(keep);
-		*keep = ft_strdup(&line[i + 1]);
+		*keep = ft_strdup(&(*keep)[i + 1]);
 	}
 	else
 		ft_free(keep);
@@ -83,7 +83,7 @@ char	*get_next_line(int fd)
 	return (get_next_line_2(&keep, array_len));
 }
 
-
+/*
 int main(void)
 {
 	int fd = open("text", O_RDONLY);
@@ -97,3 +97,4 @@ int main(void)
 	}
 	return 0;
 }
+*/
