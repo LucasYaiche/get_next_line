@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:42:58 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/18 18:56:31 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/19 16:14:22 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,29 @@ char	*get_next_line_2(char **keep, int array_len)
 	int		i;
 	char	*array;
 	char	*line;
+	int		check;
 
 	if (array_len < 0)
 		return (NULL);
 	if (!*keep && array_len <= 0)
 		return (NULL);
 	i = 0;
+	check = 0;
 	line = ft_strdup(*keep);
 	while (line[i])
 	{
 		if (line[i] == '\n')
+		{
+			check = 1;
 			break ;
+		}
 		i++;
 	}
-	if (line[i + 1] != '\0' && array_len > 0)
+	//write(1, "coucou\n", 7);
+	if (check == 1 && array_len > 0)
 	{
 		ft_free(keep);
-		*keep = ft_strdup(&(*keep)[i + 1]);
+		*keep = ft_strdup(&line[i + 1]);
 	}
 	else
 		ft_free(keep);
@@ -83,7 +89,7 @@ char	*get_next_line(int fd)
 	return (get_next_line_2(&keep, array_len));
 }
 
-/*
+
 int main(void)
 {
 	int fd = open("text", O_RDONLY);
@@ -97,4 +103,3 @@ int main(void)
 	}
 	return 0;
 }
-*/
