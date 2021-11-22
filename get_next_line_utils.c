@@ -6,30 +6,23 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:15:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/19 16:16:47 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/22 16:28:29 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_bzero(char *s, size_t n)
-{
-	size_t	count;
-
-	count = 0;
-	while (n > count)
-		s[count++] = '\0';
-	return (s);
-}
-
 char	*ft_calloc(size_t len)
 {
 	char	*tab;
+	size_t	count;
 
 	tab = malloc(sizeof(char) * len);
 	if (!tab)
 		return (NULL);
-	ft_bzero(tab, len);
+	count = 0;
+	while (len > count)
+		tab[count++] = '\0';
 	return (tab);
 }
 
@@ -71,18 +64,12 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	i = 0;
 	j = -1;
-	if (s1)
-	{
-		while (s1[++j])
-			returned[i++] = s1[j];
-		ft_free(&s1);
-	}
+	while (s1[++j])
+		returned[i++] = s1[j];
+	ft_free(&s1);
 	j = -1;
-	if (s2)
-	{
-		while (s2[++j])
-			returned[i++] = s2[j];
-	}
+	while (s2[++j])
+		returned[i++] = s2[j];
 	return (returned);
 }
 

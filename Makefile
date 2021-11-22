@@ -11,7 +11,7 @@ OBJS = ${SRC:.c=.o}
 #====#
 
 AR = ar rc
-CFLAGS =  -Wall -Werror -Wextra -D BUFFER_SIZE=42 
+CFLAGS =  -Wall -Werror -Wextra -D BUFFER_SIZE=1
 NAME = test
 
 #=========#
@@ -19,21 +19,21 @@ NAME = test
 #=========#
 
 .c.o:
-			gcc ${CFLAGS} -c $< -o ${<:.c=.o}
+			@gcc ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
-			gcc -o ${NAME} ${OBJS}
+			@gcc -o ${NAME} ${OBJS}
 
 all:		${NAME}
 
 run:		re
-			./test
+			@./test
 
 clean:
-			rm -f ${OBJS}
+			@ rm -f ${OBJS}
 
 fclean:		clean
-			rm -f ${NAME}
+			@rm -f ${NAME}
 
 re:			fclean all
 
