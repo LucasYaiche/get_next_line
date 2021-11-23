@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:42:58 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/23 14:40:38 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/23 14:40:45 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	ft_free(char **ptr)
 {
@@ -83,14 +83,14 @@ char	*get_next_line_2(char **keep, int array_len, int inspect)
 char	*get_next_line(int fd)
 {
 	char		*buf;
-	static char	*keep = NULL;
+	static char	*keep[OPEN_MAX];
 	int			inspect;
 	int			array_len;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX - 1
 		|| fd >= OPEN_MAX)
 		return (NULL);
-	inspect = check(keep, '\n');
+	inspect = check(keep[fd], '\n');
 	buf = NULL;
 	while (inspect == -1)
 	{
@@ -100,10 +100,10 @@ char	*get_next_line(int fd)
 		array_len = read(fd, buf, BUFFER_SIZE);
 		if (array_len <= 0)
 			break ;
-		keep = ft_strjoin(keep, buf);
-		inspect = check(keep, '\n');
+		keep[fd] = ft_strjoin(keep[fd], buf);
+		inspect = check(keep[fd], '\n');
 		ft_free(&buf);
 	}
 	ft_free(&buf);
-	return (get_next_line_2(&keep, array_len, inspect));
+	return (get_next_line_2(&keep[fd], array_len, inspect));
 }
