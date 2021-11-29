@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:15:41 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/22 16:28:29 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/29 09:17:04 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ size_t	ft_strlen(const char *str)
 
 	len = 0;
 	if (str)
-	{
 		while (str[len])
 			len++;
-	}
 	return (len);
 }
 
