@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:42:58 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/23 14:40:38 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/11/30 10:37:46 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	*get_next_line_4(char *returned, char **keep, char	*line, int i)
 	i = -1;
 	while (line[++i])
 		returned[i] = line[i];
-	returned[i] = '\0';
 	return (returned);
 }
 
@@ -40,7 +39,7 @@ char	*get_next_line_3(char **keep, char *line, int inspect)
 	i = 0;
 	while (line[i] && line[i] != '\n')
 		i++;
-	returned = ft_calloc(i + 1);
+	returned = ft_calloc(i + 2);
 	if (!returned)
 		return (NULL);
 	if (line[i] == '\n' && line[i + 1] != '\0')
@@ -50,7 +49,6 @@ char	*get_next_line_3(char **keep, char *line, int inspect)
 		i = -1;
 		while (++i <= inspect)
 			returned[i] = line[i];
-		returned[i] = '\0';
 		ft_free(keep);
 	}
 	return (returned);
