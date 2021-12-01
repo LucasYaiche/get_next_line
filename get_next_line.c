@@ -6,7 +6,7 @@
 /*   By: lyaiche <lyaiche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:42:58 by lyaiche           #+#    #+#             */
-/*   Updated: 2021/11/30 10:37:46 by lyaiche          ###   ########.fr       */
+/*   Updated: 2021/12/01 13:43:10 by lyaiche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*get_next_line_2(char **keep, int array_len, int inspect)
 	if (!*keep && array_len == 0)
 		return (NULL);
 	line = ft_strdup(*keep);
+	if (!line)
+		return (NULL);
 	if (inspect == -1 && array_len == 0)
 	{
 		ft_free(keep);
